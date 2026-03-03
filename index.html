@@ -1,0 +1,1163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Case Report - Damian Gartalla</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #1e3a5f;
+            --secondary: #2c5282;
+            --accent: #e53e3e;
+            --light: #f7fafc;
+            --text: #2d3748;
+            --border: #cbd5e0;
+            --success: #38a169;
+            --warning: #d69e2e;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        /* Header Section */
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+            opacity: 0.3;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .header .subtitle {
+            font-size: 1.2em;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        .patient-badge {
+            display: inline-flex;
+            gap: 30px;
+            margin-top: 25px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .badge-item {
+            background: rgba(255,255,255,0.15);
+            padding: 12px 24px;
+            border-radius: 30px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .badge-item strong {
+            display: block;
+            font-size: 0.85em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.8;
+            margin-bottom: 4px;
+        }
+
+        .badge-item span {
+            font-size: 1.1em;
+            font-weight: 600;
+        }
+
+        /* Main Content */
+        .content {
+            padding: 40px;
+        }
+
+        .section {
+            margin-bottom: 35px;
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-title {
+            color: var(--primary);
+            font-size: 1.5em;
+            font-weight: 700;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid var(--secondary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title::before {
+            content: '';
+            width: 4px;
+            height: 24px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        .info-card {
+            background: var(--light);
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid var(--secondary);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .info-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .info-card h4 {
+            color: var(--primary);
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .info-card p {
+            font-size: 1.1em;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        /* Vital Signs Special Styling */
+        .vitals-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .vital-sign {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .vital-sign.alert {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        .vital-sign h4 {
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.9;
+            margin-bottom: 10px;
+        }
+
+        .vital-sign .value {
+            font-size: 2em;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .vital-sign .unit {
+            font-size: 0.9em;
+            opacity: 0.8;
+        }
+
+        .vital-sign .status {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255,255,255,0.2);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75em;
+            font-weight: 600;
+        }
+
+        /* Diagnosis Box */
+        .diagnosis-box {
+            background: linear-gradient(135deg, #fff5f5 0%, #fed7d7 100%);
+            border: 2px solid var(--accent);
+            border-radius: 12px;
+            padding: 25px;
+            margin: 20px 0;
+            position: relative;
+        }
+
+        .diagnosis-box::before {
+            content: 'PRIMARY DIAGNOSIS';
+            position: absolute;
+            top: -12px;
+            left: 20px;
+            background: var(--accent);
+            color: white;
+            padding: 4px 16px;
+            border-radius: 20px;
+            font-size: 0.75em;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .diagnosis-box h3 {
+            color: var(--accent);
+            font-size: 1.8em;
+            margin-top: 10px;
+            margin-bottom: 5px;
+        }
+
+        .diagnosis-box p {
+            color: #744210;
+            font-size: 1.1em;
+        }
+
+        /* Tables */
+        .table-container {
+            overflow-x: auto;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            font-size: 0.95em;
+        }
+
+        thead {
+            background: var(--primary);
+            color: white;
+        }
+
+        th {
+            padding: 16px;
+            text-align: left;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.5px;
+        }
+
+        td {
+            padding: 14px 16px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        tbody tr:hover {
+            background: #f7fafc;
+        }
+
+        tbody tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        tbody tr:nth-child(even):hover {
+            background: #edf2f7;
+        }
+
+        /* Abnormal Values Highlighting */
+        .abnormal-high {
+            color: var(--accent);
+            font-weight: 700;
+            background: #fff5f5;
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+
+        .abnormal-low {
+            color: #d69e2e;
+            font-weight: 700;
+            background: #fffff0;
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+
+        .normal {
+            color: var(--success);
+            font-weight: 600;
+        }
+
+        /* Drug Study Table Special Styling */
+        .drug-study-table th {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+        }
+
+        .drug-study-table td:first-child {
+            font-weight: 700;
+            color: var(--primary);
+            background: #f7fafc;
+        }
+
+        /* NCP Table */
+        .ncp-table {
+            font-size: 0.9em;
+        }
+
+        .ncp-table th {
+            background: linear-gradient(135deg, #2d3748 0%, #4a5568 100%);
+        }
+
+        .ncp-table td {
+            vertical-align: top;
+            line-height: 1.5;
+        }
+
+        .ncp-table td strong {
+            color: var(--primary);
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        /* Lists within tables */
+        .ncp-table ul {
+            margin: 0;
+            padding-left: 18px;
+        }
+
+        .ncp-table li {
+            margin-bottom: 4px;
+        }
+
+        /* Intervention Types */
+        .intervention-type {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .independent {
+            background: #c6f6d5;
+            color: #22543d;
+        }
+
+        .dependent {
+            background: #feebc8;
+            color: #744210;
+        }
+
+        /* Print Styles */
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            
+            .container {
+                box-shadow: none;
+                max-width: 100%;
+            }
+            
+            .header {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            
+            .vital-sign.alert {
+                animation: none;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .vitals-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .header h1 {
+                font-size: 1.8em;
+            }
+            
+            .patient-badge {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--light);
+            padding: 30px;
+            text-align: center;
+            border-top: 1px solid var(--border);
+            color: #718096;
+            font-size: 0.9em;
+        }
+
+        .footer-info {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+
+        .footer-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .footer-item strong {
+            color: var(--primary);
+            font-size: 0.85em;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>CASE REPORT</h1>
+            <p class="subtitle">Community Acquired Pneumonia Management</p>
+            
+            <div class="patient-badge">
+                <div class="badge-item">
+                    <strong>Patient</strong>
+                    <span>Damian Gartalla</span>
+                </div>
+                <div class="badge-item">
+                    <strong>Age / Gender</strong>
+                    <span>66 / Male</span>
+                </div>
+                <div class="badge-item">
+                    <strong>Admission Date</strong>
+                    <span>Feb 21, 2026</span>
+                </div>
+                <div class="badge-item">
+                    <strong>Case ID</strong>
+                    <span>CAP-2026-0221</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="content">
+            <!-- Chief Complaint -->
+            <div class="section">
+                <h2 class="section-title">Chief Complaint</h2>
+                <div class="info-card" style="border-left-color: var(--accent);">
+                    <p style="font-size: 1.2em; line-height: 1.6;">
+                        Patient was rushed to the Emergency Room due to <strong>difficulty of breathing</strong> and productive <strong>cough for 2 days</strong>.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Diagnosis -->
+            <div class="section">
+                <div class="diagnosis-box">
+                    <h3>Community Acquired Pneumonia</h3>
+                    <p>Moderate Risk Classification (CAP)</p>
+                </div>
+            </div>
+
+            <!-- History -->
+            <div class="section">
+                <h2 class="section-title">History</h2>
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h4>History of Present Illness</h4>
+                        <p>Cough associated with difficulty of breathing (DOB). Progressive respiratory distress over 2 days.</p>
+                    </div>
+                    <div class="info-card">
+                        <h4>Past Medical History</h4>
+                        <p>Wound in perineal area (status not specified)</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vital Signs -->
+            <div class="section">
+                <h2 class="section-title">Vital Signs upon Admission</h2>
+                <div class="vitals-container">
+                    <div class="vital-sign">
+                        <h4>Blood Pressure</h4>
+                        <div class="value">120/80</div>
+                        <div class="unit">mmHg</div>
+                        <span class="status normal">Normal</span>
+                    </div>
+                    <div class="vital-sign">
+                        <h4>Pulse Rate</h4>
+                        <div class="value">77</div>
+                        <div class="unit">bpm</div>
+                        <span class="status normal">Normal</span>
+                    </div>
+                    <div class="vital-sign alert">
+                        <h4>Respiratory Rate</h4>
+                        <div class="value">27</div>
+                        <div class="unit">breaths/min</div>
+                        <span class="status">Tachypnea</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Laboratory Results -->
+            <div class="section">
+                <h2 class="section-title">Laboratory Results</h2>
+                
+                <h3 style="color: var(--secondary); margin: 20px 0 10px; font-size: 1.1em;">Hematology</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Parameter</th>
+                                <th>Result</th>
+                                <th>Normal Range</th>
+                                <th>Interpretation</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Hemoglobin</td>
+                                <td class="abnormal-low">117 g/L</td>
+                                <td>130-180 g/L</td>
+                                <td>Anemia</td>
+                            </tr>
+                            <tr>
+                                <td>Hematocrit</td>
+                                <td class="abnormal-low">0.35</td>
+                                <td>0.40-0.54</td>
+                                <td>Low</td>
+                            </tr>
+                            <tr>
+                                <td>Red Blood Cells</td>
+                                <td class="abnormal-low">3.89 ×10¹²/L</td>
+                                <td>4.5-5.5 ×10¹²/L</td>
+                                <td>Low</td>
+                            </tr>
+                            <tr>
+                                <td>White Blood Cells</td>
+                                <td class="normal">9.03 ×10⁹/L</td>
+                                <td>4.5-11.0 ×10⁹/L</td>
+                                <td>Normal</td>
+                            </tr>
+                            <tr>
+                                <td>Segments</td>
+                                <td class="abnormal-high">0.86 (86%)</td>
+                                <td>0.50-0.70 (50-70%)</td>
+                                <td>High - Bacterial infection</td>
+                            </tr>
+                            <tr>
+                                <td>Lymphocytes</td>
+                                <td class="abnormal-low">0.09 (9%)</td>
+                                <td>0.20-0.40 (20-40%)</td>
+                                <td>Low</td>
+                            </tr>
+                            <tr>
+                                <td>Eosinophils</td>
+                                <td class="normal">0.02 (2%)</td>
+                                <td>0.01-0.04 (1-4%)</td>
+                                <td>Normal</td>
+                            </tr>
+                            <tr>
+                                <td>Monocytes</td>
+                                <td class="normal">0.03 (3%)</td>
+                                <td>0.02-0.08 (2-8%)</td>
+                                <td>Normal</td>
+                            </tr>
+                            <tr>
+                                <td>Bands</td>
+                                <td class="normal">0.03 (3%)</td>
+                                <td>0.00-0.05 (0-5%)</td>
+                                <td>Normal</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 style="color: var(--secondary); margin: 20px 0 10px; font-size: 1.1em;">Chemistry & Other Tests</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Test</th>
+                                <th>Result</th>
+                                <th>Normal Range</th>
+                                <th>Interpretation</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Glycosylated Hemoglobin (HbA1c)</td>
+                                <td class="abnormal-high">8.90%</td>
+                                <td>&lt;5.7%</td>
+                                <td>Poorly controlled Diabetes</td>
+                            </tr>
+                            <tr>
+                                <td>Troponin (Qualitative)</td>
+                                <td class="normal">Negative</td>
+                                <td>Negative</td>
+                                <td>No acute MI</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 style="color: var(--secondary); margin: 20px 0 10px; font-size: 1.1em;">Urinalysis</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Parameter</th>
+                                <th>Result</th>
+                                <th>Interpretation</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Color</td>
+                                <td>Yellow</td>
+                                <td class="normal">Normal</td>
+                            </tr>
+                            <tr>
+                                <td>Transparency</td>
+                                <td>Clear</td>
+                                <td class="normal">Normal</td>
+                            </tr>
+                            <tr>
+                                <td>Reaction (pH)</td>
+                                <td>Acidic</td>
+                                <td class="normal">Normal</td>
+                            </tr>
+                            <tr>
+                                <td>Protein</td>
+                                <td>Negative</td>
+                                <td class="normal">Normal</td>
+                            </tr>
+                            <tr>
+                                <td>Glucose</td>
+                                <td>Negative</td>
+                                <td class="normal">Normal</td>
+                            </tr>
+                            <tr>
+                                <td>Specific Gravity</td>
+                                <td class="abnormal-low">1.005</td>
+                                <td>Low (possible hydration/renal issue)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 style="color: var(--secondary); margin: 20px 0 10px; font-size: 1.1em;">Electrolytes</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Electrolyte</th>
+                                <th>Value</th>
+                                <th>Normal Range</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Sodium</td>
+                                <td>138.0 mEq/L</td>
+                                <td>135-145 mEq/L</td>
+                                <td class="normal">Normal</td>
+                            </tr>
+                            <tr>
+                                <td>Potassium</td>
+                                <td>4.2 mEq/L</td>
+                                <td>3.5-5.0 mEq/L</td>
+                                <td class="normal">Normal</td>
+                            </tr>
+                            <tr>
+                                <td>Chloride</td>
+                                <td>—</td>
+                                <td>98-106 mEq/L</td>
+                                <td>Not documented</td>
+                            </tr>
+                            <tr>
+                                <td>Calcium</td>
+                                <td>—</td>
+                                <td>8.5-10.5 mg/dL</td>
+                                <td>Not documented</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Medications -->
+            <div class="section">
+                <h2 class="section-title">Current Medications</h2>
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h4>Antibiotic Therapy</h4>
+                        <p>Ceftriaxone + Azithromycin</p>
+                    </div>
+                    <div class="info-card">
+                        <h4>Gastric Protection</h4>
+                        <p>Omeprazole</p>
+                    </div>
+                    <div class="info-card">
+                        <h4>Respiratory</h4>
+                        <p>Fluimucil, Salbutamol, Sinicod Forte</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DRUG STUDY TABLE -->
+            <div class="section">
+                <h2 class="section-title">Drug Study</h2>
+                <div class="table-container">
+                    <table class="drug-study-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 12%;">Drug Name</th>
+                                <th style="width: 15%;">Classification</th>
+                                <th style="width: 20%;">Mechanism of Action</th>
+                                <th style="width: 15%;">Indication</th>
+                                <th style="width: 18%;">Dosage & Route</th>
+                                <th style="width: 20%;">Nursing Responsibilities</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Omeprazole</td>
+                                <td>Proton Pump Inhibitor (PPI)</td>
+                                <td>Suppresses gastric acid secretion by inhibiting hydrogen-potassium ATPase enzyme system in gastric parietal cells</td>
+                                <td>Gastric protection, prevention of stress ulcers, GERD</td>
+                                <td>20-40 mg IV/PO once daily</td>
+                                <td>
+                                    • Assess for abdominal pain and GI bleeding<br>
+                                    • Monitor for diarrhea and headache<br>
+                                    • Administer before meals<br>
+                                    • Monitor magnesium levels with long-term use
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Ceftriaxone</td>
+                                <td>Third-generation Cephalosporin Antibiotic</td>
+                                <td>Inhibits bacterial cell wall synthesis by binding to penicillin-binding proteins, leading to cell lysis and death</td>
+                                <td>Community Acquired Pneumonia, bacterial infections</td>
+                                <td>1-2 g IV every 12-24 hours</td>
+                                <td>
+                                    • Obtain culture before first dose<br>
+                                    • Monitor for allergic reactions<br>
+                                    • Assess for diarrhea (C. diff risk)<br>
+                                    • Protect from light<br>
+                                    • Check compatibility with calcium-containing solutions
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Azithromycin</td>
+                                <td>Macrolide Antibiotic</td>
+                                <td>Binds to 50S ribosomal subunit, inhibiting bacterial protein synthesis; bacteriostatic</td>
+                                <td>Atypical pneumonia, adjunct therapy for CAP</td>
+                                <td>500 mg IV/PO on day 1, then 250 mg daily</td>
+                                <td>
+                                    • Monitor for QT prolongation and arrhythmias<br>
+                                    • Assess liver function<br>
+                                    • Watch for GI upset<br>
+                                    • Complete full course of therapy
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Fluimucil (Acetylcysteine)</td>
+                                <td>Mucolytic Agent</td>
+                                <td>Breaks disulfide bonds in mucus, reducing viscosity and facilitating expectoration</td>
+                                <td>Thick bronchial secretions, mucus clearance in pneumonia</td>
+                                <td>200 mg PO/IV 2-3 times daily or 3-5 mL via nebulizer</td>
+                                <td>
+                                    • Monitor for bronchospasm during nebulization<br>
+                                    • Ensure adequate hydration<br>
+                                    • Assess sputum characteristics<br>
+                                    • Administer with bronchodilator if bronchospasm occurs
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Salbutamol (Albuterol)</td>
+                                <td>Short-acting Beta-2 Agonist (SABA)</td>
+                                <td>Stimulates beta-2 adrenergic receptors in bronchial smooth muscle, causing bronchodilation</td>
+                                <td>Bronchospasm, wheezing, difficulty of breathing</td>
+                                <td>2.5 mg nebulization every 4-6 hours or 1-2 puffs inhaler</td>
+                                <td>
+                                    • Assess breath sounds before and after<br>
+                                    • Monitor heart rate (tachycardia risk)<br>
+                                    • Teach proper inhaler technique<br>
+                                    • Watch for tremors and nervousness<br>
+                                    • Monitor potassium levels
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Sinicod Forte</td>
+                                <td>Cough Suppressant/Expectorant Combination</td>
+                                <td>Contains codeine (antitussive) and guaifenesin (expectorant) to suppress cough reflex and thin secretions</td>
+                                <td>Persistent cough, particularly at night</td>
+                                <td>1 tablet PO every 6-8 hours</td>
+                                <td>
+                                    • Monitor respiratory rate and depth<br>
+                                    • Assess for drowsiness and sedation<br>
+                                    • Avoid alcohol and CNS depressants<br>
+                                    • Monitor for constipation<br>
+                                    • Use cautiously in elderly
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- NCP TABLE -->
+            <div class="section">
+                <h2 class="section-title">Nursing Care Plan (NCP)</h2>
+                <div class="table-container">
+                    <table class="ncp-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 20%;">Assessment</th>
+                                <th style="width: 15%;">Nursing Diagnosis</th>
+                                <th style="width: 15%;">Planning</th>
+                                <th style="width: 30%;">Interventions</th>
+                                <th style="width: 20%;">Evaluation</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <strong>Subjective:</strong> Patient reports difficulty of breathing and cough for 2 days<br><br>
+                                    <strong>Objective:</strong><br>
+                                    • RR: 27 (tachypnea)<br>
+                                    • Use of accessory muscles<br>
+                                    • Restlessness<br>
+                                    • Abnormal breath sounds
+                                </td>
+                                <td><strong>Impaired Gas Exchange</strong> related to inflammatory process in alveoli secondary to pneumonia</td>
+                                <td>
+                                    <strong>Short-term:</strong><br>
+                                    • RR will decrease to 18-20 breaths/min within 24-48 hours<br>
+                                    • O2 saturation >92% on room air<br><br>
+                                    <strong>Long-term:</strong><br>
+                                    • Return to normal respiratory function<br>
+                                    • Clear chest x-ray
+                                </td>
+                                <td>
+                                    <span class="intervention-type independent">Independent:</span>
+                                    <ul>
+                                        <li>Monitor VS q2-4h, especially RR and O2 sat</li>
+                                        <li>Position in high Fowler's position</li>
+                                        <li>Encourage deep breathing and coughing exercises</li>
+                                        <li>Provide calm, quiet environment</li>
+                                        <li>Monitor skin color and capillary refill</li>
+                                    </ul>
+                                    <span class="intervention-type dependent" style="margin-top: 10px; display: inline-block;">Dependent:</span>
+                                    <ul>
+                                        <li>Administer O2 therapy as ordered</li>
+                                        <li>Give bronchodilators and antibiotics on time</li>
+                                        <li>Prepare for possible ABG analysis</li>
+                                    </ul>
+                                </td>
+                                <td>
+                                    After 48 hours:<br>
+                                    • RR normalized to 20 breaths/min<br>
+                                    • O2 saturation 94% on room air<br>
+                                    • Patient reports easier breathing<br>
+                                    • Less use of accessory muscles
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>Subjective:</strong> Patient reports productive cough with thick secretions<br><br>
+                                    <strong>Objective:</strong><br>
+                                    • Adventitious breath sounds (crackles/rales)<br>
+                                    • Thick yellow sputum<br>
+                                    • Tachypnea
+                                </td>
+                                <td><strong>Ineffective Airway Clearance</strong> related to excessive mucus production and inflammation</td>
+                                <td>
+                                    <strong>Short-term:</strong><br>
+                                    • Patient will expectorate secretions effectively within 24 hours<br>
+                                    • Breath sounds will clear<br><br>
+                                    <strong>Long-term:</strong><br>
+                                    • Maintain patent airway<br>
+                                    • Prevent complications (atelectasis)
+                                </td>
+                                <td>
+                                    <span class="intervention-type independent">Independent:</span>
+                                    <ul>
+                                        <li>Assess breath sounds q4h</li>
+                                        <li>Encourage fluid intake (if not contraindicated)</li>
+                                        <li>Teach effective coughing techniques</li>
+                                        <li>Position for optimal drainage</li>
+                                        <li>Provide humidified air</li>
+                                    </ul>
+                                    <span class="intervention-type dependent" style="margin-top: 10px; display: inline-block;">Dependent:</span>
+                                    <ul>
+                                        <li>Administer mucolytics (Fluimucil) as ordered</li>
+                                        <li>Give expectorants and bronchodilators</li>
+                                        <li>Perform suctioning if needed</li>
+                                        <li>Chest physiotherapy if ordered</li>
+                                    </ul>
+                                </td>
+                                <td>
+                                    After 24 hours:<br>
+                                    • Patient able to cough up secretions<br>
+                                    • Breath sounds improved<br>
+                                    • Sputum production decreased<br>
+                                    • Airway remains patent
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>Subjective:</strong> History of perineal wound<br><br>
+                                    <strong>Objective:</strong><br>
+                                    • HbA1c: 8.90% (poorly controlled DM)<br>
+                                    • Existing wound in perineal area<br>
+                                    • Anemia (Hb: 117)
+                                </td>
+                                <td><strong>Risk for Infection</strong> related to compromised immune system, uncontrolled diabetes, and existing wound</td>
+                                <td>
+                                    <strong>Short-term:</strong><br>
+                                    • Wound will remain free from infection signs<br>
+                                    • Blood glucose will stabilize<br><br>
+                                    <strong>Long-term:</strong><br>
+                                    • Wound healing<br>
+                                    • Prevent sepsis
+                                </td>
+                                <td>
+                                    <span class="intervention-type independent">Independent:</span>
+                                    <ul>
+                                        <li>Strict hand hygiene</li>
+                                        <li>Monitor wound for redness, swelling, drainage</li>
+                                        <li>Assess vital signs for infection</li>
+                                        <li>Monitor blood glucose levels</li>
+                                        <li>Provide diabetic diet education</li>
+                                    </ul>
+                                    <span class="intervention-type dependent" style="margin-top: 10px; display: inline-block;">Dependent:</span>
+                                    <ul>
+                                        <li>Administer antibiotics as ordered</li>
+                                        <li>Wound care and dressing changes</li>
+                                        <li>Blood glucose monitoring and insulin administration</li>
+                                        <li>Obtain wound culture if signs of infection</li>
+                                    </ul>
+                                </td>
+                                <td>
+                                    After 72 hours:<br>
+                                    • No signs of wound infection<br>
+                                    • Blood glucose within target range<br>
+                                    • Wound showing granulation tissue<br>
+                                    • Afebrile
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>Subjective:</strong> Patient may report fatigue, weakness<br><br>
+                                    <strong>Objective:</strong><br>
+                                    • Hb: 117 (low)<br>
+                                    • Hct: 0.35 (low)<br>
+                                    • RBC: 3.89 (low)<br>
+                                    • Pale skin/conjunctiva
+                                </td>
+                                <td><strong>Imbalanced Nutrition: Less than Body Requirements</strong> related to anemia and chronic illness</td>
+                                <td>
+                                    <strong>Short-term:</strong><br>
+                                    • Patient will verbalize understanding of nutritional needs<br>
+                                    • Tolerance of oral diet<br><br>
+                                    <strong>Long-term:</strong><br>
+                                    • Improve hemoglobin levels<br>
+                                    • Maintain adequate nutritional status
+                                </td>
+                                <td>
+                                    <span class="intervention-type independent">Independent:</span>
+                                    <ul>
+                                        <li>Assess dietary intake and preferences</li>
+                                        <li>Weigh daily</li>
+                                        <li>Provide small, frequent meals</li>
+                                        <li>Encourage iron-rich foods</li>
+                                        <li>Monitor for signs of bleeding</li>
+                                    </ul>
+                                    <span class="intervention-type dependent" style="margin-top: 10px; display: inline-block;">Dependent:</span>
+                                    <ul>
+                                        <li>Administer iron supplements or vitamins if ordered</li>
+                                        <li>Consult dietitian for meal planning</li>
+                                        <li>Monitor CBC trends</li>
+                                        <li>Blood transfusion if severely indicated</li>
+                                    </ul>
+                                </td>
+                                <td>
+                                    After 1 week:<br>
+                                    • Patient eating 75% of meals<br>
+                                    • Weight stable<br>
+                                    • Improved energy levels<br>
+                                    • Hemoglobin trending upward
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>Subjective:</strong> History of perineal wound<br><br>
+                                    <strong>Objective:</strong><br>
+                                    • Immobility due to illness<br>
+                                    • Anemia causing fatigue<br>
+                                    • Possible incontinence
+                                </td>
+                                <td><strong>Risk for Impaired Skin Integrity</strong> related to immobility, existing wound, and poor circulation</td>
+                                <td>
+                                    <strong>Short-term:</strong><br>
+                                    • No new skin breakdown<br>
+                                    • Existing wound will not deteriorate<br><br>
+                                    <strong>Long-term:</strong><br>
+                                    • Complete wound healing<br>
+                                    • Prevent pressure ulcers
+                                </td>
+                                <td>
+                                    <span class="intervention-type independent">Independent:</span>
+                                    <ul>
+                                        <li>Reposition every 2 hours</li>
+                                        <li>Assess skin integrity q8h</li>
+                                        <li>Keep perineal area clean and dry</li>
+                                        <li>Use pressure-relieving devices</li>
+                                        <li>Maintain adequate nutrition and hydration</li>
+                                    </ul>
+                                    <span class="intervention-type dependent" style="margin-top: 10px; display: inline-block;">Dependent:</span>
+                                    <ul>
+                                        <li>Apply topical treatments as ordered</li>
+                                        <li>Wound debridement if indicated</li>
+                                        <li>Specialty mattress if ordered</li>
+                                        <li>Consult wound care nurse</li>
+                                    </ul>
+                                </td>
+                                <td>
+                                    After 1 week:<br>
+                                    • No new pressure ulcers<br>
+                                    • Perineal wound size decreased<br>
+                                    • Skin intact in all other areas<br>
+                                    • Patient participating in mobility exercises
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p><strong>Case Report Documentation</strong></p>
+            <div class="footer-info">
+                <div class="footer-item">
+                    <strong>Prepared by</strong>
+                    <span>Jay Marie Ann Canete</span>
+                </div>
+                <div class="footer-item">
+                    <strong>Date</strong>
+                    <span>March 3, 2026</span>
+                </div>
+                <div class="footer-item">
+                    <strong>Status</strong>
+                    <span>Active Case</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Add smooth scrolling and interactive elements
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animate sections on scroll
+            const sections = document.querySelectorAll('.section');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            sections.forEach(section => {
+                section.style.opacity = '0';
+                section.style.transform = 'translateY(20px)';
+                section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(section);
+            });
+
+            // Add click to copy functionality for tables
+            const tables = document.querySelectorAll('table');
+            tables.forEach(table => {
+                table.addEventListener('dblclick', function() {
+                    const range = document.createRange();
+                    range.selectNode(this);
+                    window.getSelection().removeAllRanges();
+                    window.getSelection().addRange(range);
+                    document.execCommand('copy');
+                    window.getSelection().removeAllRanges();
+                    
+                    // Visual feedback
+                    const originalBorder = this.style.border;
+                    this.style.border = '2px solid #38a169';
+                    setTimeout(() => {
+                        this.style.border = originalBorder;
+                    }, 500);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
